@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1692991561 source:c:\users\leona\desktop\ufpr-2\ds143-estruturas_de_dados_ii\3-recursão_e_busca\exercicio\aula04-implementaçãobusca\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1692991608 source:c:\users\leona\desktop\ufpr-2\ds143-estruturas_de_dados_ii\3-recursão_e_busca\exercicio\aula04-implementaçãobusca\secondary.c
+	<stdio.h>
+	<stdlib.h>
+
