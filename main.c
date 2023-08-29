@@ -43,6 +43,7 @@ int time_cmp(t_time* h1, t_time* h2)
 
 int is_empty(t_timetable* head)
 {
+    printf("head == NULL? %d\n", head == NULL);
     if(head == NULL)
     {
         return 1;
@@ -96,18 +97,18 @@ void print_list(t_timetable* head)
     }
 };
 
-void put(t_timetable* head, t_time val, char *key)
+void put(t_timetable** head, t_time val, char *key)
 {
-    if(is_empty(head))
+    if(is_empty(*head))
     {
         t_timetable* newTime = create(val, key);
         newTime->next = NULL;
-        head = newTime;
+        *head = newTime;
     }
     else
     {
         {
-            t_timetable* c = head;
+            t_timetable* c = *head;
             while(c->next != NULL)
             {
                 if (time_cmp(&val, &c->value) == 0)
@@ -140,16 +141,14 @@ int main()
 
     t_time a = {2, 2, 2};
     t_time b = {3, 3, 3};
-    t_time c = {3, 3, 3};
+    t_time c = {4, 4, 4};
     t_time d = {5, 5, 5};
-    put(head, a, "first");
-    put(head, b, "second");
-    put(head, c, "third");
-    put(head, d, "fourth");
+    put(&head, a, "first");
+    put(&head, b, "second");
+    put(&head, c, "third");
+    put(&head, d, "fourth");
 
-    printf("\nBEFORE PRINT\n");
     print_list(head);
-    printf("\nAFTER PRINT\n");
 
     printf("\nFIM\n");
     return 0;
