@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1697315863 source:c:\users\leona\desktop\ufpr-2\ds143-estruturas_de_dados_ii\repo\data-structures-c\06-arvores-e-percurcos\6-arvores&percursos\main.c
+	<stdio.h>
+	<stdlib.h>
+	"tree.h"
+
+1697313669 c:\users\leona\desktop\ufpr-2\ds143-estruturas_de_dados_ii\repo\data-structures-c\06-arvores-e-percurcos\6-arvores&percursos\tree.h
+
