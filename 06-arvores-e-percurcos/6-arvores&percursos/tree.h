@@ -10,4 +10,9 @@ int is_empty(Tree* t);
 int is_present(Tree* t, char data);
 void print_tree(Tree* t);
 
+// This week's exercise:
+
+int is_mirror(Tree* tree_a, Tree* tree_b);
+Tree*  create_mirror(Tree* tree);
+
 #endif // TREE_H_INCLUDED

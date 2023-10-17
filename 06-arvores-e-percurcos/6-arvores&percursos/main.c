@@ -88,6 +88,46 @@ void print_binary_tree(Tree* t)
     };
 };
 
+int is_mirror(Tree* tree_a, Tree* tree_b)
+{
+
+};
+
+Tree*  create_mirror(Tree* tree)
+{
+    if(is_empty(tree)){
+        return NULL;
+    }
+    Tree* t = create_tree(tree->data, tree->right, tree->left);
+    if(!is_empty(tree->left) )
+    {
+        create_mirror(tree->left);
+    }
+    if(!is_empty(tree->right)){
+        create_mirror(tree->right);
+    }
+    return t;
+};
+
+Tree* create_copy(Tree* tree)
+{
+    if(is_empty(tree))
+    {
+        return NULL;
+    }
+    Tree* r = create_tree(tree->data, tree->left, tree->right);
+    if(!is_empty(tree->left))
+    {
+        r->left = create_copy(tree->left);
+    }
+    if(!is_empty(tree->right))
+    {
+        r->right = create_copy(tree->right);
+    }
+    return r;
+}
+
+
 int main()
 {
     printf("=============================================== START ==\n");
@@ -103,8 +143,23 @@ int main()
 //    printf("\n");
 //    print_binary_tree(a);
 //    printf("\n");
-    printf("Is 'd' present? %s\n", is_present(a, 'd') ? "Yes." : "No.");
-    printf("Is 'z' present? %s\n", is_present(a, 'z') ? "Yes." : "No.");
+    Tree *copy = create_copy(a);
+    Tree *mirror = create_mirror(a);
+    printf("Tree a: ");
+    print_tree(a);
+    printf("\n");
+    printf("Tree copy: ");
+    print_binary_tree(copy);
+//    print_tree(copy);
+    printf("\n");
+    printf("Tree mirror: ");
+    print_binary_tree(mirror);
+//    print_tree(mirror);
+    printf("\n");
+//    for(int c = 97; c < 123 ; c++)
+//    {
+//        printf("Is '%c' present? %s\n", c,is_present(a, c) ? "Yes." : "No.");
+//    }
     printf("\n");
 
 
