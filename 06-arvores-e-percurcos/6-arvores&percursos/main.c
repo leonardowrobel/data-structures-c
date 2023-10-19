@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define COUNT 10
 #include "tree.h"
 
 // Defining Tree Structure
@@ -90,21 +91,30 @@ void print_binary_tree(Tree* t)
 
 int is_mirror(Tree* tree_a, Tree* tree_b)
 {
-
+    int same = (tree_a->data == tree_b->data);
+    printf("Nodes are same? %s\n", same ? "YES" : "NO");
+    return same;
 };
+
+int is_same(Tree* tree_a, Tree* tree_b)
+{
+    return ((tree_a->data == tree_b->data) && (tree_a->left == tree_b->left) && (tree_a->right == tree_b->right));
+}
 
 Tree*  create_mirror(Tree* tree)
 {
-    if(is_empty(tree)){
+    if(is_empty(tree))
+    {
         return NULL;
     }
     Tree* t = create_tree(tree->data, tree->right, tree->left);
     if(!is_empty(tree->left) )
     {
-        create_mirror(tree->left);
+        t->right = create_mirror(tree->left);
     }
-    if(!is_empty(tree->right)){
-        create_mirror(tree->right);
+    if(!is_empty(tree->right))
+    {
+        t->left = create_mirror(tree->right);
     }
     return t;
 };
@@ -128,39 +138,77 @@ Tree* create_copy(Tree* tree)
 }
 
 
+// https://www.geeksforgeeks.org/print-binary-tree-2-dimensions/
+// Helper function to allocates a new node
+Tree* newTree(char data)
+{
+    Tree* tree = (Tree*)malloc(sizeof(Tree));
+    tree->data = data;
+    tree->left = tree->right = NULL;
+    return tree;
+}
+
+// Function to print binary tree in 2D
+// It does reverse inorder traversal
+void print2DUtil(Tree* root, int space)
+{
+    // Base case
+    if (root == NULL)
+        return;
+
+    // Increase distance between levels
+    space += COUNT;
+
+    // Process right child first
+    print2DUtil(root->right, space);
+
+    // Print current node after space
+    // count
+    printf("\n");
+    for (int i = COUNT; i < space; i++)
+        printf(" ");
+    printf("%c\n", root->data);
+
+    // Process left child
+    print2DUtil(root->left, space);
+}
+
+// Wrapper over print2DUtil()
+void print2D(Tree* root)
+{
+    // Pass initial space count as 0
+    print2DUtil(root, 0);
+}
+
 int main()
 {
     printf("=============================================== START ==\n");
-    Tree *a, *a1, *a2, *a3, *a4, *a5;
+    Tree *a, *a1, *a2, *a3, *a4, *a5, *a6, *a7, *a8, *a9;
     a1 = create_tree('d',create_empty_tree(),create_empty_tree());
-    a2 = create_tree('b',create_empty_tree(),a1);
+    a9 = create_tree('g',create_empty_tree(),create_empty_tree());
+    a2 = create_tree('b',a9,a1);
     a3 = create_tree('e',create_empty_tree(),create_empty_tree());
     a4 = create_tree('f',create_empty_tree(),create_empty_tree());
     a5 = create_tree('c',a3,a4);
-    a  = create_tree('a',a2,a5);
+    a6 = create_tree('u',a2,a5);
+    a7 = create_tree('z', create_empty_tree(),create_empty_tree());
+    a8 = create_tree('x', a7,create_empty_tree());
+    a  = create_tree('a',a6, a8);
 
-//    print_tree(a);
-//    printf("\n");
-//    print_binary_tree(a);
-//    printf("\n");
     Tree *copy = create_copy(a);
     Tree *mirror = create_mirror(a);
-    printf("Tree a: ");
-    print_tree(a);
+    printf("Tree a: \n");
+//    print2D(a);
     printf("\n");
-    printf("Tree copy: ");
-    print_binary_tree(copy);
-//    print_tree(copy);
+    printf("Tree copy: \n");
+//    print2D(copy);
     printf("\n");
-    printf("Tree mirror: ");
-    print_binary_tree(mirror);
-//    print_tree(mirror);
+    printf("Tree mirror: \n");
+//    print2D(mirror);
     printf("\n");
-//    for(int c = 97; c < 123 ; c++)
-//    {
-//        printf("Is '%c' present? %s\n", c,is_present(a, c) ? "Yes." : "No.");
-//    }
-    printf("\n");
+
+    is_mirror(a, a);
+    is_mirror(a, a1);
 
 
     printf("=============================================== END ==\n");
