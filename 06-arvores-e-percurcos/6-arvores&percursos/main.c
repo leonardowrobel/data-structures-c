@@ -91,17 +91,20 @@ void print_binary_tree(Tree* t)
 
 int is_mirror(Tree* tree_a, Tree* tree_b)
 {
-    int same = (tree_a->data == tree_b->data);
-    printf("Nodes are same? %s\n", same ? "YES" : "NO");
-    return same;
+    if(is_empty(tree_a) && is_empty(tree_b))
+    {
+        return 1;
+    }
+
+    if(is_empty(tree_a) || is_empty(tree_b))
+    {
+        return 0;
+    }
+
+    return ((tree_a->data == tree_b->data) && is_mirror(tree_a->left, tree_b->right) && is_mirror(tree_a->right, tree_b->left));
 };
 
-int is_same(Tree* tree_a, Tree* tree_b)
-{
-    return ((tree_a->data == tree_b->data) && (tree_a->left == tree_b->left) && (tree_a->right == tree_b->right));
-}
-
-Tree*  create_mirror(Tree* tree)
+Tree* create_mirror(Tree* tree)
 {
     if(is_empty(tree))
     {
@@ -136,7 +139,6 @@ Tree* create_copy(Tree* tree)
     }
     return r;
 }
-
 
 // https://www.geeksforgeeks.org/print-binary-tree-2-dimensions/
 // Helper function to allocates a new node
@@ -184,32 +186,32 @@ int main()
 {
     printf("=============================================== START ==\n");
     Tree *a, *a1, *a2, *a3, *a4, *a5, *a6, *a7, *a8, *a9;
-    a1 = create_tree('d',create_empty_tree(),create_empty_tree());
-    a9 = create_tree('g',create_empty_tree(),create_empty_tree());
-    a2 = create_tree('b',a9,a1);
-    a3 = create_tree('e',create_empty_tree(),create_empty_tree());
-    a4 = create_tree('f',create_empty_tree(),create_empty_tree());
-    a5 = create_tree('c',a3,a4);
-    a6 = create_tree('u',a2,a5);
-    a7 = create_tree('z', create_empty_tree(),create_empty_tree());
-    a8 = create_tree('x', a7,create_empty_tree());
-    a  = create_tree('a',a6, a8);
+    a1 = create_tree('d', create_empty_tree(), create_empty_tree());
+    a9 = create_tree('g', create_empty_tree(), create_empty_tree());
+    a2 = create_tree('b', a9, a1);
+    a3 = create_tree('e', create_empty_tree(), create_empty_tree());
+    a4 = create_tree('f', create_empty_tree(), create_empty_tree());
+    a5 = create_tree('c', a3, a4);
+    a6 = create_tree('u', a2, a5);
+    a7 = create_tree('z', create_empty_tree(), create_empty_tree());
+    a8 = create_tree('x', a7, create_empty_tree());
+    a  = create_tree('a', a6, a8);
 
     Tree *copy = create_copy(a);
     Tree *mirror = create_mirror(a);
-    printf("Tree a: \n");
+//    printf("Tree a: \n");
 //    print2D(a);
-    printf("\n");
-    printf("Tree copy: \n");
+//    printf("\n");
+//    printf("Tree copy: \n");
 //    print2D(copy);
-    printf("\n");
-    printf("Tree mirror: \n");
+//    printf("\n");
+//    printf("Tree mirror: \n");
 //    print2D(mirror);
-    printf("\n");
+//    printf("\n");
 
-    is_mirror(a, a);
-    is_mirror(a, a1);
-
+    printf("a %s a\n", is_mirror(a, a) ? " is mirror of " : " is not mirror of ");
+    printf("a %s copy\n", is_mirror(a, copy) ? " is mirror of " : " is not mirror of ");
+    printf("a %s mirror\n", is_mirror(a, mirror) ? " is mirror of " : " is not mirror of ");
 
     printf("=============================================== END ==\n");
     return 0;
